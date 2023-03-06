@@ -14,11 +14,11 @@ class ApiRouter {
         this.initializeRoutes();
     }
     initializeRoutes() {
-        this.router.get('', apiControllers.getHomePage);
-        this.router.get('time', apiControllers.getTimePage);
-        this.router.post('time', apiControllers.postTimePage);
-        this.router.put('timezone', apiControllers.putTimezonePage);
-        this.router.delete('timezone', apiControllers.deleteTimezonePage);
+        this.router.get('/', apiControllers.getHomePage);
+        this.router.get('/time', apiControllers.getTimePage);
+        this.router.post('/time', apiControllers.postTimePage);
+        this.router.put('/timezone', apiControllers.putTimezonePage);
+        this.router.delete('/timezone', apiControllers.deleteTimezonePage);
     }
 }
 exports.ApiRouter = ApiRouter;

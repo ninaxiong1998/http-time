@@ -21,7 +21,7 @@ const apiRouter = new ApiRouter;
 //   next();
 // });
 
-app.use('/', apiRouter.router)
+app.use('', apiRouter.router)
 
 // app.use((request: Request, response: Response) => {
 //   response.type('text/plain');

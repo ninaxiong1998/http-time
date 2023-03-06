@@ -19,7 +19,7 @@ const apiRouter = new api_routes_1.ApiRouter;
 //   response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 //   next();
 // });
-app.use('/', apiRouter.router);
+app.use('', apiRouter.router);
 // app.use((request: Request, response: Response) => {
 //   response.type('text/plain');
 //   response.status(404)

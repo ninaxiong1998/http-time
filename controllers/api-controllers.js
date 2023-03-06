@@ -31,12 +31,12 @@ class ApiControllers {
         var _a;
         let timezoneNew = (_a = request.body) === null || _a === void 0 ? void 0 : _a.timezone;
         console.log(request.body);
-        response.send(timezoneNew);
+        // response.send(timezoneNew);
         if (timezoneNew == undefined) {
             timezoneNew = 'Etc/UTC';
         }
         exports.timezone = timezoneNew;
-        // response.send(timezone);
+        response.send(exports.timezone);
     }
     deleteTimezonePage(request, response, next) {
         exports.timezone = 'Etc/UTC';
