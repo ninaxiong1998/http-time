@@ -7,6 +7,7 @@ exports.ApiControllers = exports.timezone = void 0;
 // import * as moment from 'moment-timezone';
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
 exports.timezone = 'Etc/UTC';
+let allZones = moment_timezone_1.default.tz.names();
 // moment.tz.setDefault('Etc/UTC');
 class ApiControllers {
     getHomePage(request, response, next) {
@@ -15,32 +16,44 @@ class ApiControllers {
     }
     getTimePage(request, response, next) {
         let timezoneNow = request.query.timezone; // ?timezone=時區
-        if (timezoneNow == undefined) {
-            timezoneNow = exports.timezone;
+        if (timezoneNow === undefined) {
+            response.send('Zone: ' + exports.timezone + ', Time: ' + (0, moment_timezone_1.default)().tz(exports.timezone).format('YYYY-MM-DD HH:mm:ss'));
         }
-        response.send((0, moment_timezone_1.default)().tz(timezoneNow).format('YYYY-MM-DD HH:mm:ss'));
+        else if (allZones.includes(timezoneNow)) {
+            response.send('Zone: ' + timezoneNow + ', Time: ' + (0, moment_timezone_1.default)().tz(timezoneNow).format('YYYY-MM-DD HH:mm:ss'));
+        }
+        else {
+            response.send('Unvalid Input! Zone: ' + exports.timezone + ', Time: ' + (0, moment_timezone_1.default)().tz(exports.timezone).format('YYYY-MM-DD HH:mm:ss'));
+        }
     }
     postTimePage(request, response, next) {
-        let timezoneNow = request.body.timezone;
-        if (timezoneNow == undefined) {
-            timezoneNow = exports.timezone;
+        var _a;
+        let timezoneNow = (_a = request.body) === null || _a === void 0 ? void 0 : _a.timezone;
+        if (timezoneNow === undefined) {
+            response.send('Zone: ' + exports.timezone + ', Time: ' + (0, moment_timezone_1.default)().tz(exports.timezone).format('YYYY-MM-DD HH:mm:ss'));
         }
-        response.send((0, moment_timezone_1.default)().tz(timezoneNow).format('YYYY-MM-DD HH:mm:ss'));
+        else if (allZones.includes(timezoneNow)) {
+            response.send('Zone: ' + timezoneNow + ', Time: ' + (0, moment_timezone_1.default)().tz(timezoneNow).format('YYYY-MM-DD HH:mm:ss'));
+        }
+        else {
+            response.send('Unvalid Input! Zone: ' + exports.timezone + ', Time: ' + (0, moment_timezone_1.default)().tz(exports.timezone).format('YYYY-MM-DD HH:mm:ss'));
+        }
     }
     putTimezonePage(request, response, next) {
         var _a;
         let timezoneNew = (_a = request.body) === null || _a === void 0 ? void 0 : _a.timezone;
-        console.log(request.body);
-        // response.send(timezoneNew);
-        if (timezoneNew == undefined) {
-            timezoneNew = 'Etc/UTC';
+        if (timezoneNew === undefined || !allZones.includes(timezoneNew)) {
+            exports.timezone = 'Etc/UTC';
+            response.send('Unvalid zone! Reset as ' + exports.timezone);
         }
-        exports.timezone = timezoneNew;
-        response.send(exports.timezone);
+        else {
+            exports.timezone = timezoneNew;
+            response.send('Reset as ' + exports.timezone);
+        }
     }
     deleteTimezonePage(request, response, next) {
         exports.timezone = 'Etc/UTC';
-        response.send(exports.timezone);
+        response.send('Reset as ' + exports.timezone);
     }
 }
 exports.ApiControllers = ApiControllers;
