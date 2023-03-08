@@ -14,9 +14,6 @@ app.use(express.json());
 const apiRouter = new ApiRouter;
 app.use('', apiRouter.router);
 
-var options = {
-  explorer: true
-};
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
